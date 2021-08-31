@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FM\ElfinderBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -28,6 +30,6 @@ final class FMElfinderExtension extends Extension
 
     public function getNamespace(): string
     {
-        return 'http://helios-ag.github.io/schema/dic/fm_elfinder';
+        return 'https://helios-ag.github.io/schema/dic/fm_elfinder';
     }
 }
