@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FM\ElfinderBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -52,22 +54,7 @@ class ElFinderType extends AbstractType
             ->setAllowedTypes('homeFolder', ['string', 'null']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
-    {
-        if (method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
-            return 'Symfony\Component\Form\Extension\Core\Type\TextType';
-        }
-
-        return 'text';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }
@@ -75,7 +62,7 @@ class ElFinderType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'elfinder';
     }
