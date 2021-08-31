@@ -6,15 +6,12 @@ use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * Class Configuration.
- */
 class Configuration implements ConfigurationInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('fm_elfinder');
         $rootNode    = $treeBuilder->getRootNode();
@@ -322,10 +319,7 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    /**
-     * @return NodeDefinition the Flysystem node
-     */
-    private function createFlysystemNode()
+    private function createFlysystemNode(): NodeDefinition
     {
         return $this->createNode('options')
             ->children()
@@ -442,10 +436,7 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    /**
-     * @return NodeDefinition the plugins node
-     */
-    private function createPluginsNode()
+    private function createPluginsNode(): NodeDefinition
     {
         return $this->createNode('plugins')
             ->useAttributeAsKey('name')
@@ -455,10 +446,7 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    /**
-     * @return NodeDefinition the bind node
-     */
-    private function createBindsNode()
+    private function createBindsNode(): NodeDefinition
     {
         return $this->createNode('binds')
             ->useAttributeAsKey('name')
@@ -468,10 +456,7 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    /**
-     * @return NodeDefinition the bind node
-     */
-    private function createDriverOptionsNode()
+    private function createDriverOptionsNode(): NodeDefinition
     {
         return $this->createNode('driver_options')
             ->useAttributeAsKey('name')
@@ -481,12 +466,7 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    /**
-     * @param string $name the node name
-     *
-     * @return NodeDefinition the node
-     */
-    private function createNode($name)
+    private function createNode(string $name): NodeDefinition
     {
         $treeBuilder = new TreeBuilder($name);
         if (\method_exists($treeBuilder, 'getRootNode')) {
