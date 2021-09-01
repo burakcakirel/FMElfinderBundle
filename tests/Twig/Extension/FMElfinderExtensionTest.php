@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FM\ElfinderBundle\Tests\Twig\Extension;
 
 use FM\ElfinderBundle\Twig\Extension\FMElfinderExtension;
@@ -42,7 +44,7 @@ class FMElfinderExtensionTest extends \PHPUnit\Framework\TestCase
         $this->twig->addExtension(new RoutingExtension(new UrlGenerator($routes, new RequestContext())));
     }
 
-    public function testRenderTinyMCE3()
+    public function testRenderTinyMCE3(): void
     {
         $testData = $this->twig->render('_tinymce.html.twig', ['instance' => 'minimal']);
 
@@ -72,7 +74,7 @@ EOF;
         $this->assertSame($this->normalizeOutput($expected), $this->normalizeOutput($testData));
     }
 
-    public function testRenderTinyMCE4()
+    public function testRenderTinyMCE4(): void
     {
         $testData = $this->twig->render('_tinymce4.html.twig', ['instance' => 'minimal']);
 
@@ -98,7 +100,7 @@ EOF;
         $this->assertSame($this->normalizeOutput($expected), $this->normalizeOutput($testData));
     }
 
-    public function testRenderSummernote()
+    public function testRenderSummernote(): void
     {
         $testData = $this->twig->render('_summernote.html.twig', ['instance' => 'minimal']);
 
@@ -117,7 +119,7 @@ EOF;
         $this->assertSame($this->normalizeOutput($expected), $this->normalizeOutput($testData));
     }
 
-    public function testName()
+    public function testName(): void
     {
         $this->assertEquals('fm_elfinder_init', $this->extension->getName());
     }
@@ -138,37 +140,37 @@ EOF;
      *
      * @return string the normalized output
      */
-    protected function normalizeOutput($output)
+    protected function normalizeOutput(string $output): string
     {
         return preg_replace("/\r|\n/", '', str_replace(PHP_EOL, '', str_replace(' ', '', $output)));
     }
 
-    public function testSubClassOfTwigExtension()
+    public function testSubClassOfTwigExtension(): void
     {
         $rc = new \ReflectionClass('FM\ElfinderBundle\Twig\Extension\FMElfinderExtension');
 
         $this->assertTrue($rc->isSubclassOf('Twig\Extension\AbstractExtension'));
     }
 
-    public function testSummernoteInstanceNotString()
+    public function testSummernoteInstanceNotString(): void
     {
         $this->expectException(\Twig\Error\LoaderError::class);
         $this->extension->summernote(1);
     }
 
-    public function testTinyMCEInstanceNotString()
+    public function testTinyMCEInstanceNotString(): void
     {
         $this->expectException(\Twig\Error\LoaderError::class);
         $this->extension->tinymce(1);
     }
 
-    public function testTinyMCE4InstanceNotString()
+    public function testTinyMCE4InstanceNotString(): void
     {
         $this->expectException(\Twig\Error\LoaderError::class);
         $this->extension->tinymce4(1);
     }
 
-    public function testGetFunctions()
+    public function testGetFunctions(): void
     {
         $twigFunctions = $this->extension->getFunctions();
 
