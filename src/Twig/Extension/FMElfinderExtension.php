@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FM\ElfinderBundle\Twig\Extension;
 
 use Twig\Environment;
@@ -21,10 +23,8 @@ class FMElfinderExtension extends AbstractExtension
 
     /**
      * {@inheritdoc}
-     *
-     * @return array
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         $options = ['is_safe' => ['html']];
 
@@ -37,18 +37,12 @@ class FMElfinderExtension extends AbstractExtension
     }
 
     /**
-     * @return mixed
-     *
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function tinymce(string $instance = 'default', array $parameters = ['width' => 900, 'height' => 450, 'title' => 'elFinder 2.0'])
+    public function tinymce(string $instance = 'default', array $parameters = ['width' => 900, 'height' => 450, 'title' => 'elFinder 2.0']): string
     {
-        if (!is_string($instance)) {
-            throw new RuntimeError('The function can be applied to strings only.');
-        }
-
         return $this->twig->render(
             '@FMElfinder/Elfinder/helper/_tinymce.html.twig',
             [
@@ -92,7 +86,7 @@ class FMElfinderExtension extends AbstractExtension
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function summernote(string $instance = 'default', string $selector = '.summenote', array $parameters = ['width' => 900, 'height' => 450, 'title' => 'elFinder 2.0']): string
+    public function summernote(string $instance = 'default', string $selector = '.summernote', array $parameters = ['width' => 900, 'height' => 450, 'title' => 'elFinder 2.0']): string
     {
         return $this->twig->render(
             '@FMElfinder/Elfinder/helper/_summernote.html.twig',
