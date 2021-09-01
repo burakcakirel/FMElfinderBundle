@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FM\ElfinderBundle\Loader;
 
 use FM\ElfinderBundle\Connector\ElFinderConnector;
@@ -8,25 +10,13 @@ use FM\ElfinderBundle\Configuration\ElFinderConfigurationProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-/**
- * Class ElFinderLoader.
- */
 class ElFinderLoader
 {
-    /** @var string */
-    protected $instance;
-
-    /** @var ElFinderConfigurationProviderInterface */
-    protected $configurator;
-
-    /** @var array */
-    protected $config;
-
-    /** @var ElFinderBridge */
-    protected $bridge;
-
-    /** @var SessionInterface */
-    protected $session;
+    protected string $instance;
+    protected ElFinderConfigurationProviderInterface $configurator;
+    protected array $config;
+    protected ElFinderBridge $bridge;
+    protected SessionInterface $session;
 
     public function __construct(ElFinderConfigurationProviderInterface $configurator)
     {
@@ -35,10 +25,8 @@ class ElFinderLoader
 
     /**
      * @throws \Exception
-     *
-     * @return array
      */
-    public function configure()
+    public function configure(): array
     {
         $configurator = $this->configurator;
         if (!($configurator instanceof ElFinderConfigurationProviderInterface)) {
@@ -50,12 +38,9 @@ class ElFinderLoader
 
     /**
      * Configure the Bridge to ElFinder.
-     *
-     * @var string
-     *
      * @throws \Exception
      */
-    public function initBridge($instance, array $efParameters)
+    public function initBridge(string $instance, array $efParameters): void
     {
         $this->setInstance($instance);
 
@@ -99,10 +84,7 @@ class ElFinderLoader
         }
     }
 
-    /**
-     * @param string $instance
-     */
-    public function setInstance($instance)
+    public function setInstance(string $instance)
     {
         $this->instance = $instance;
     }
@@ -113,13 +95,9 @@ class ElFinderLoader
     }
 
     /**
-     * Encode path into hash.
-     *
-     * @param string $path
-     *
      * @return mixed
-     **/
-    public function encode($path)
+     */
+    public function encode(string $path)
     {
         $aPathEncoded = [];
 
@@ -138,14 +116,7 @@ class ElFinderLoader
         }
     }
 
-    /**
-     * Decode path from hash.
-     *
-     * @param string $hash
-     *
-     * @return string
-     **/
-    public function decode($hash)
+    public function decode(string $hash): string
     {
         $volume = $this->bridge->getVolume($hash);
 
