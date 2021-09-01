@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace FM\ElfinderBundle\Loader;
 
+use elFinderVolumeDriver;
 use FM\ElfinderBundle\Connector\ElFinderConnector;
 use FM\ElfinderBundle\Bridge\ElFinderBridge;
 use FM\ElfinderBundle\Configuration\ElFinderConfigurationProviderInterface;
+use FM\ElfinderBundle\Exception\ImproperConfigurationClassException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -23,23 +25,16 @@ class ElFinderLoader
         $this->configurator = $configurator;
     }
 
-    /**
-     * @throws \Exception
-     */
     public function configure(): array
     {
         $configurator = $this->configurator;
         if (!($configurator instanceof ElFinderConfigurationProviderInterface)) {
-            throw new \Exception('Configurator class must implement ElFinderConfigurationProviderInterface');
+            throw new ImproperConfigurationClassException();
         }
 
         return $configurator->getConfiguration($this->instance);
     }
 
-    /**
-     * Configure the Bridge to ElFinder.
-     * @throws \Exception
-     */
     public function initBridge(string $instance, array $efParameters): void
     {
         $this->setInstance($instance);
@@ -116,11 +111,11 @@ class ElFinderLoader
         }
     }
 
-    public function decode(string $hash): string
+    public function decode(string $hash)
     {
         $volume = $this->bridge->getVolume($hash);
 
-        /* @var $volume \elFinderVolumeDriver */
+        /* @var $volume elFinderVolumeDriver */
         return (!empty($volume)) ? $volume->getPath($hash) : false;
     }
 
