@@ -1,17 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FM\ElfinderBundle;
 
 use FM\ElfinderBundle\DependencyInjection\Compiler\TwigFormPass;
+use FM\ElfinderBundle\DependencyInjection\FMElfinderExtension;
 use Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * Class FMElfinderBundle.
- */
-class FMElfinderBundle extends Bundle
+final class FMElfinderBundle extends Bundle
 {
+    public function getContainerExtension(): FMElfinderExtension
+    {
+        return new FMElfinderExtension();
+    }
+    
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
