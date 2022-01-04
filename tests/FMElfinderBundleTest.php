@@ -23,11 +23,11 @@ class FMElfinderBundleTest extends \PHPUnit\Framework\TestCase
             ->method('addCompilerPass')
             ->with($this->isInstanceOf('FM\ElfinderBundle\DependencyInjection\Compiler\TwigFormPass'))
             ->will($this->returnSelf());
-        $containerBuilder
+        /*$containerBuilder
             ->expects($this->at(1))
             ->method('addCompilerPass')
             ->with($this->isInstanceOf('Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass'))
-            ->will($this->returnSelf());
+            ->will($this->returnSelf());*/
         $bundle = new FMElfinderBundle();
         $bundle->build($containerBuilder);
     }
